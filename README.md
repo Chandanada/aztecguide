@@ -214,39 +214,45 @@ aztec start --node --archiver --sequencer \
      -U can get External IP by running  `curl ifconfig.me`
 
 
-* It will take few times to download and Sync! 🥶
+* It will take sometime(4-5 hrs) to download and Sync! 🥶
+
 
 ![Screenshot 2025-05-02 164041](https://github.com/user-attachments/assets/17dd3df2-3136-4dd0-8dde-70cf19291503)
 
 
 * The Successfull Running Should Look like this 👇
 
+  ```
+  Downloaded L2 block 10032 {"blockHash":"0x09b279299f438717fbfecfe13d107f6163426b7c8d171d5ebb315a302fd7a257","blockNumber":10036,"txCount":0,"globalVariables":{"chainId":11155111,"version":4189337207,"blockNumber":10036,"slotNumber":13555,"timestamp":1748418684,"coinbase":"0xaa6a270b83acc94f1871b763b2899c6bd084d52a","feeRecipient":"0x0000000000000000000000000000000000000000000000000000000000000000","feePerDaGas":0,"feePerL2Gas":3420},"archiveRoot":"0x0fb65295d5466158df7798c08f5f5787e4c23552a41ce5d049f9313ab4d40db4","archiveNextLeafIndex":10037}
+  ```
+  
+![Screenshot 2025-05-28 131915](https://github.com/user-attachments/assets/17bdcd0a-871b-4b51-9477-5d9443d097b2)
 
-![Screenshot 2025-05-02 172143](https://github.com/user-attachments/assets/37ae2455-8b98-4642-bf14-0f5e1ed90cf2)
+Please note: Once your node is up and running to verify whether it got fully synced or not and downloading latest blocks or not you can check your block number, for ex: here its 10032 with block number shown here - https://aztecscan.xyz/blocks
 
 
-# ♦️ Use this Template for saving data:
 
- ------👇Save These Info/Data👇 ------
+#######################################################
 
-Aztec Sequencer Node ( XXXXX dc)
+* 😱😱 Very Imp update about aztec node run ( for Users - Only if you are running your node in Google cloud VPS, if not then you can ignore the below steps ) 
 
-• Ethereum sepolia RPCs : 
+----  START -----
+•  Google cloud console link : https://console.cloud.google.com/compute/instances
 
-• Beacon_sepolia_RPCS : 
+•  Web Link (aztec explorer) : https://aztec.nethermind.io/
 
-• PVT KEY : 
+•  Find Peer id: (Copy below command and execute it in your VPS after deattaching your VPS screen)
+```
+sudo docker logs $(docker ps -q --filter ancestor=aztecprotocol/aztec:alpha-testnet | head -n 1) 2>&1 | grep -i "peerId" | grep -o '"peerId":"[^"]*"' | cut -d'"' -f4 | head -n 1
+```
 
-• MM Public Address : 
+•  Add This + allow port (as per video): 0.0.0.0/0
 
-• IP ( cloud vps) : 
+*  For more details - check this aztec discord official link - https://discord.com/channels/1144692727120937080/1366896687800389734/1374428506288689383
 
-• Block Number : 
+---- END-----
 
-• Base64 encoded string : 
-
------- 👆Save These Info/Data👆 ------
-
+#########################################################
 
 # Detached and Attached From the Screen
 
@@ -312,9 +318,16 @@ http://localhost:8080 | jq -r ".result"
 
 * Success message should look like this! & U will get the role!
 
-![Screenshot 2025-05-02 175859](https://github.com/user-attachments/assets/5db4bbac-a2d5-463c-a9c1-ea7ae18b00a5)
-
 ![Screenshot 2025-05-02 180049](https://github.com/user-attachments/assets/cb25480d-01ae-45d7-9017-c269e2cc54a6)
+
+KEEP YOUR NODE RUNNING, YOU WILL GET GUARDIAN ROLE ONCE THE TEAM TAKES SNAPSHOT. I ALREADY GRABBED GUARDIAN ROLE IN ALL MY 3 Accounts.
+
+![-16249-Discord-operators│start-here-Aztec-Network-05-27-2025_11_23_PM](https://github.com/user-attachments/assets/9519cc2c-b94c-4aba-8b11-d3cfb217fbb3)
+
+![-19677-Discord-operators│start-here-Aztec-Network-05-27-2025_11_25_PM](https://github.com/user-attachments/assets/7740ca2b-349f-40c3-aa2f-7016e45e6011)
+
+![-2947-Discord-operators│start-here-Aztec-Network-05-27-2025_11_27_PM](https://github.com/user-attachments/assets/dbf019ba-ccb0-4be0-a59c-ff4116a4d99b)
+
 
 This Readme will keep getting updated here and on my X https://x.com/ChetnaRai18
 
