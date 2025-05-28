@@ -17,156 +17,304 @@ Details Guide on how to  Run `Sequencer Node` on Aztec Network Testnet, Earn `Ap
 **Windows Users** 
 For windows 10+ and above, Open your cmd and type `wsl.exe` , it should take you to your window subsytem where the commands below will work fine or just download ubuntu if you don't have wsl ready.
 
-## 1. Install Dependecies
-* Update packages:
-```bash
+# Install All Require Dependecies
+
+```
 sudo apt-get update && sudo apt-get upgrade -y
 ```
 
-* Install Packages:
-```bash
-sudo apt install curl iptables build-essential git wget lz4 jq make gcc nano automake autoconf tmux htop nvme-cli libgbm1 pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev  -y
-```
-
-* Install Docker:
-```bash
-sudo apt update -y && sudo apt upgrade -y
-for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
-
-sudo apt-get update
-sudo apt-get install ca-certificates curl gnupg
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt update -y && sudo apt upgrade -y
-
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-# Test Docker
-sudo docker run hello-world
-
-sudo systemctl enable docker
-sudo systemctl restart docker
+* Install Node.js 
 
 ```
-if you using google cloud than use 2nd command before 3rd command if you using normal vps than 3rd command directly 
-
-2. usermod
-```bash
-sudo usermod -aG docker $USER
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt update && sudo apt install -y nodejs
 ```
 
-NOW OPEN A NEW TERMINAL OR DUPLICATE
+* Other Packages
 
-## 3. Install Aztec Tools
-
-```bash
-  bash -i <(curl -s https://install.aztec.network)
 ```
-## 4. again run this command
-```bash
-sudo usermod -aG docker $USER
+sudo apt install curl iptables build-essential git wget lz4 jq make gcc nano automake autoconf tmux htop nvme-cli libgbm1 pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev screen ufw -y
 ```
 
-## 5. Update Aztec
 
-```bash
+# Install Docker & Docker Compose
+
+
+```
+sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
+
+```
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+```
+sudo apt update && sudo apt install -y docker-ce && sudo systemctl enable --now docker
+```
+
+```
+sudo usermod -aG docker $USER && newgrp docker
+```
+
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose
+```
+
+
+*  Verify installation
+
+```
+docker --version && docker-compose --version
+```
+
+
+
+# Install the Aztec CLI
+
+```
+bash -i <(curl -s https://install.aztec.network)
+```
+
+
+* Lets Config it to your corrent Shell/Path
+
+```
+echo 'export PATH="$HOME/.aztec/bin:$PATH"' >> ~/.bashrc
+```
+
+```
+source ~/.bashrc
+```
+
+* Verify the Installation with-
+
+```
+aztec -h
+```
+
+
+* Set the correct version for the testnet
+
+```
 aztec-up alpha-testnet
 ```
 
-## 6. Run Sequencer Node
-* Open new screen oor duplicate 
-```bash
+
+# Load your wallet with Sepolia Faucet 
+
+https://sepolia-faucet.pk910.de/
+
+https://www.alchemy.com/faucets/ethereum-sepolia
+
+
+
+# Allow Incoming connections on Ports 
+
+```
+sudo ufw allow 22
+sudo ufw allow ssh
+sudo ufw enable
+```
+
+```
+sudo ufw allow 40400
+sudo ufw allow 8080
+```
+
+## Obtain RPC URLs (Please note: Incase of any warning by Phantom/Metamask while opening the below rpc urls, simply ignore and proceed forward as all the mentioned RPC urls are totally safe.)
+
+*  Beacon + Sepolia Rpc + Other Network Endpoint 👇
+
+• Rockx : https://tinyurl.com/ad9yp4ws
+
+• BlockPi : https://tinyurl.com/mt396mx8
+
+• Drpc : https://tinyurl.com/4wjxk2d8
+
+• Ankr : https://tinyurl.com/2y4aw9ct
+
+• Tenderly : https://tinyurl.com/46duvbhe
+
+• Chainstack : https://tinyurl.com/dkwvmaas
+
+Sepolia Rpc + Other Network Endpoint👇
+
+• Alchemy : https://tinyurl.com/ryabsbwd
+
+• Nodereal : https://tinyurl.com/3a6yb4jn
+
+• Metamask : https://tinyurl.com/4d7h36m3
+
+• Blast :  https://tinyurl.com/yn9tmvfz
+
+• Getblock :  https://tinyurl.com/uuuv7t9p
+
+## Generate Ethereum Keys (You can use your metamask to create a new wallet and use here)
+Get an EVM Wallet with `Private Key` and `Public Address` saved.
+
+## Get Sepolia ETH
+Fund your Ethereum Wallet with `ETH Sepolia`
+you can get sepolia eth from alchemy `https://www.alchemy.com/faucets/ethereum-sepolia`
+
+
+<div  align="center">
+   
+#  Start Your Sequencer 🍥
+
+</div>
+
+* Create a Screen Session
+
+```
 screen -S aztec
 ```
-## 7. Run
-```bash
-aztec-up alpha-testnet
-```
-* Find IP
-```bash
-curl ipv4.icanhazip.com
-```
 
-   * Run Node
+  🔺🔺--- Execute below given command to Start Your node & Dont forget to make changes in it, now here is the catch, we will use multipacked RPC urls here so that in case one RPCs failed other RPCs work as a backup and which keep the nodes running.
+
 ```
 aztec start --node --archiver --sequencer \
   --network alpha-testnet \
-  --l1-rpc-urls RPC_URL  \
-  --l1-consensus-host-urls BEACON_URL \
-  --sequencer.validatorPrivateKey 0xYourPrivateKey \
-  --sequencer.coinbase 0xYourAddress \
-  --p2p.p2pIp IP
+  --l1-rpc-urls 'https://lb.drpc.org/ogrpc?network=sepolia&dkey=[API_KEY],,https://sepolia-eth.w3node.com/[HASH]/api,https://eth-sepolia.blastapi.io/[API_KEY],https://eth-sepolia.g.alchemy.com/v2/[API_KEY],https://ethereum-sepolia.core.chainstack.com/beacon/[API_KEY],https://eth-sepolia.nodereal.io/v1/[API_KEY]' \
+  --l1-consensus-host-urls 'https://sepolia-beacon.w3node.com/[HASH]/api,https://lb.drpc.org/rest/[API_KEY]/eth-beacon-chain-sepolia,https://ethereum-sepolia-beacon.blockpi.network/rpc/v1/[API_KEY]' \
+  --sequencer.validatorPrivateKey [VALIDATOR_PRIVATE_KEY] \
+  --sequencer.coinbase [ADDRESS] \
+  --p2p.p2pIp [PUBLIC_IP] \
+  --p2p.maxTxPoolSize 1000000000 \ 
+  --sequencer.governanceProposerPayload 0x54F7fe24E349993b363A5Fa1bccdAe2589D5E5Ef
 ```
 
-Replace the following variables before you Run Node:
-* `RPC_URL` & `BEACON_URL`: Step 4
-* `0xYourPrivateKey`: Your EVM wallet private key
-* `0xYourAddress`: Your EVM wallet public address
-* `IP`: Your server IP (Step 7)
+* Replace `[API_KEY] and [HASH]` with your actual one which you get once you signup with your gmail Ids, You need to login/signup with your gmail Ids in above given RPC urls and select eth sepolia and beacon chains to get your API Key.
 
-### Optional Commands:
-**Screen Commands:**
-* Minimze screen: `Ctrl` + `A` + `D`
-* Return to screen: `screen -r aztec`
-* Kill screen (when inside): `Ctrl`+`C+
-* Kill screen (when outside): `screen -XS aztec quit`
 
-## 8. Sync Node
-After entering the command, your node starts running, It takes a few minutes for your node to get synced
+* 👇👇For Example: Once you setup ur above command with multipacked RPCs your final command should look like this..(DONT COPY THIS 👇, AS ITS JUST FOR REFERENCE)👇👇
 
-## 9. Get Role
-Go to the discord channel :[operators| start-here](https://discord.com/channels/1144692727120937080/1367196595866828982/1367323893324582954) and follow the prompts, You can continue the guide with my commands if you need help.
+```
+aztec start --node --archiver --sequencer \
+  --network alpha-testnet \
+  --l1-rpc-urls 'https://lb.drpc.org/ogrpc?network=sepolia&dkey=Aq78CYyrerer--uuNuIR8KmrbrRhIxXF,https://sepolia-eth.w3node.com/1fc8gdgttrtretgdgdabcb/api,https://frosty-damp-vineyard.ethereum-sepolia.quiknode.pro/a57bb2fghfhfghfh78c,https://eth-sepolia.blastapi.io/06e8f36c-9fhjg1b-4323-a3fffc5-ee27gggd2d89e24,https://eth-sepolia.g.alchemy.com/v2/tPYgggfpQFLxO5UFTJ-DWYYMncyFpYffwL2sha,https://ethereum-sepolia.core.chainstack.com/beacon/c07e43adb9ff3abcecef8d5198842f5cdf,https://eth-sepolia.nodereal.io/v1/2f9380ff72b1e7lkjjj6bbfd868e5564fa' \
+  --l1-consensus-host-urls 'https://sepolia-beacon.w3node.com/3dc168631a62aa42ffff20ab18ajhhh5f0665532a2cabaaeefc6d50c/api,https://lb.drpc.org/rest/Aq78CYMMggghjhjhsrxF_5uB_-x5_4Ed9NuIRffff8KmrbrRhIxXF/eth-beacon-chain-sepolia,https://ethereum-sepolia-beacon.blockpi.network/rpc/v1/fff20sdsdsdsdsdsdsdab18ajhhh5f0665532a2c' \
+  --sequencer.validatorPrivateKey 0x1826...........1feca832a \
+  --sequencer.coinbase 0x3fC.......8997647 \
+  --p2p.p2pIp 34......43 \
+  --p2p.maxTxPoolSize 1000000000 \ 
+--sequencer.governanceProposerPayload 0x54F7fe24E349993b363A5Fa1bccdAe2589D5E5Ef
 
-**Step 1: Get the latest proven block number:**
-```bash
+```
+
+* Replace `0xYourPrivateKey` with your actual EVM wallet pvt key    🔺 (dont forget to add 0x at starting)
+
+* Replace `YourAddress` with your actual evm wallet address
+
+* Replace `Your_ip` with your `VPS External IP`  ... 
+
+     -U can get External IP by running  `curl ifconfig.me`
+
+
+* It will take few times to download and Sync! 🥶
+
+![Screenshot 2025-05-02 164041](https://github.com/user-attachments/assets/17dd3df2-3136-4dd0-8dde-70cf19291503)
+
+
+* The Successfull Running Should Look like this 👇
+
+
+![Screenshot 2025-05-02 172143](https://github.com/user-attachments/assets/37ae2455-8b98-4642-bf14-0f5e1ed90cf2)
+
+
+# ♦️ Use this Template for saving data:
+
+ ------👇Save These Info/Data👇 ------
+
+Aztec Sequencer Node ( XXXXX dc)
+
+• Ethereum sepolia RPCs : 
+
+• Beacon_sepolia_RPCS : 
+
+• PVT KEY : 
+
+• MM Public Address : 
+
+• IP ( cloud vps) : 
+
+• Block Number : 
+
+• Base64 encoded string : 
+
+------ 👆Save These Info/Data👆 ------
+
+
+# Detached and Attached From the Screen
+
+* For detached from screen session - `ctrl` , `a` + `d`
+
+* For Attach - 
+
+```
+screen -r aztec
+```
+
+<div  align="center">
+   
+# Get Apprentice Role In dc- 😙
+
+</div>
+
+
+📋 **Step 1: Get the latest proven block number**
+
+```
 curl -s -X POST -H 'Content-Type: application/json' \
 -d '{"jsonrpc":"2.0","method":"node_getL2Tips","params":[],"id":67}' \
 http://localhost:8080 | jq -r ".result.proven.number"
 ```
-* Save this block number for the next steps
-* Example output: 20905
 
-**Step 2: Generate your sync proof**
-```bash
+* Save this block number for the next steps
+
+* Example output: `12345`
+
+🔍 **Step 2: Generate your sync proof**
+
+```
 curl -s -X POST -H 'Content-Type: application/json' \
 -d '{"jsonrpc":"2.0","method":"node_getArchiveSiblingPath","params":["BLOCK_NUMBER","BLOCK_NUMBER"],"id":67}' \
 http://localhost:8080 | jq -r ".result"
 ```
-* Replace Both the `BLOCK_NUMBER` with your number
 
-**Step 3: Register with Discord**
-* Type the following command in this Discord server: `/operator start`
-* After typing the command, Discord will display option fields that look like this:
-* `address`:            Your validator address (Ethereum Address)
-* `block-number`:      Block number for verification (Block number from Step 1)
-* `proof`:             Your sync proof (base64 string from Step 2)
+* Replace both `BLOCK_NUMBER` with your: (check step1)
 
-Then you'll get your `Apprentice` Role
-
-![image](https://github.com/user-attachments/assets/2ae9ff7c-59ba-43ec-9a23-76ef8ccb997c)
+* This will output a long base64-encoded string - (Copy it completely)
 
 
-* If the proof is showing old then delete the previous data and re-run the node
-  
-  * Delete old data:
-```bash
-rm -rf ~/.aztec/alpha-testnet/data/
-```
-* Stop node with Ctrl+C.
+✅ **Step 3: Register with Discord**
 
-* Re-run the node
-```bash
-rm -r /root/.aztec/alpha-testnet
-```
-* Re-run the node using run command.
 
+* join dc- https://discord.gg/aztec 
+
+* Go to `#operators│start-here` Channel
+
+* Type `/operator start` 
+
+![image](https://github.com/user-attachments/assets/bb4985b0-f98a-43ed-b0c1-9f7e95f6de3c)
+
+* Now it will promt u to enter `address` , `block number` , `proof`
+
+* Place your evm wallet address in `address` section
+
+* Place block-number From the `Step-1` 
+
+* Place sync Proof from `Step-2` 
+
+
+* Success message should look like this! & U will get the role!
+
+![Screenshot 2025-05-02 175859](https://github.com/user-attachments/assets/5db4bbac-a2d5-463c-a9c1-ea7ae18b00a5)
+
+![Screenshot 2025-05-02 180049](https://github.com/user-attachments/assets/cb25480d-01ae-45d7-9017-c269e2cc54a6)
 
 This Readme will keep getting updated here and on my X https://x.com/ChetnaRai18
 
