@@ -178,7 +178,7 @@ screen -S aztec
 ```
 aztec start --node --archiver --sequencer \
   --network alpha-testnet \
-  --l1-rpc-urls 'https://lb.drpc.org/ogrpc?network=sepolia&dkey=[API_KEY],,https://sepolia-eth.w3node.com/[HASH]/api,https://eth-sepolia.blastapi.io/[API_KEY],https://eth-sepolia.g.alchemy.com/v2/[API_KEY],https://ethereum-sepolia.core.chainstack.com/beacon/[API_KEY],https://eth-sepolia.nodereal.io/v1/[API_KEY]' \
+  --l1-rpc-urls 'https://lb.drpc.org/ogrpc?network=sepolia&dkey=[API_KEY],https://sepolia-eth.w3node.com/[HASH]/api,https://eth-sepolia.blastapi.io/[API_KEY],https://eth-sepolia.g.alchemy.com/v2/[API_KEY],https://ethereum-sepolia.core.chainstack.com/beacon/[API_KEY],https://eth-sepolia.nodereal.io/v1/[API_KEY]' \
   --l1-consensus-host-urls 'https://sepolia-beacon.w3node.com/[HASH]/api,https://lb.drpc.org/rest/[API_KEY]/eth-beacon-chain-sepolia,https://ethereum-sepolia-beacon.blockpi.network/rpc/v1/[API_KEY]' \
   --sequencer.validatorPrivateKey [VALIDATOR_PRIVATE_KEY] \
   --sequencer.coinbase [ADDRESS] \
