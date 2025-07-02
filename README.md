@@ -10,7 +10,7 @@ Details Guide on how to  Run `Sequencer Node` on Aztec Network Testnet, Earn `Ap
 ## Roles Info
 
 ## Hardware Requirements
-* **Sequencer Node**: Minimum of 8 cores CPU, 16GB RAM, 100GB+ SSD (Most Vps will return 132 error, best exprience is gotten from Baremetal servers)
+* **Sequencer Node**: Minimum  of 8 cores CPU, 16GB RAM, 100GB+ SSD (Most Vps will return 132 error, best exprience is gotten from Baremetal servers)
 
 ---
 
