@@ -40,7 +40,7 @@ sudo apt install curl iptables build-essential git wget lz4 jq make gcc nano aut
 
 
 ```
-sudo apt update && sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt update && sudo apt install  -y apt-transport-https ca-certificates curl software-properties-common
 ```
 
 ```
