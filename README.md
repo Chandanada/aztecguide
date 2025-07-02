@@ -36,7 +36,7 @@ sudo apt install curl iptables build-essential git wget lz4 jq make gcc nano aut
 ```
 
 
-# Install Docker & Docker Compose
+# Install Docker & Docker  Compose
 
 
 ```
